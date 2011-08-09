@@ -1,0 +1,23 @@
+{ "name" :            "ccn4bnode"
+, "description" :     "A node.js-based CCNx Integration, ala ccn4b"
+, "version" :         "0.1.0"
+, "author" :          "David J. Kordsmeier <dkords@gmail.com>"
+, "contributors" :  [ "Simba",
+                      "Keiko",
+                      "Benny"]
+
+, "repository" :    { "type" :  "git"
+                    , "url" :   "http://github.com/truedat101/ccn4bnode.git" }
+, "bugs" :          { "mail" :  "ccnx-users@ccnx.org"
+                    , "web" :   "http://github.com/truedat101/ccn4bnode/issues" }
+, "os" :            [ "linux"
+                    , "darwin"
+                    , "freebsd" ]
+, "config":         { "native" : true}                    
+, "main":             "./lib/ccn4bnode/index"
+, "directories" :   { "lib" : "./lib/ccn4bnode" }
+, "engines" :       { "node" : ">=0.4.0" }
+, "scripts": { "install" : "bash ./install.sh" }
+, "licenses" :    [ { "type" :  "BSD"
+                    , "url" :   "http://www.opensource.org/licenses/BSD-3-Clause" } ]
+}
