@@ -2,9 +2,7 @@
 NODE = node
 NODEUNIT = deps/nodeunit/bin/nodeunit
 all:
-	cd external/ccnx-*
-	make all
-
+	./install.sh
 
 test: 
 	@echo "\n == Run All tests minus replicaset tests=="

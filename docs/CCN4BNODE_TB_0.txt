@@ -1,0 +1,59 @@
+CCN4B Technical Brief 0
+by David J. Kordsmeier
+dkords<at>gmail<dot>com
+=================================
+I.  Abstract
+=================================
+
+CCN4BNODE is a thin Javascript API wrapper around Project CCNx.  The purpose of the API is to expose CCNx as a service to the Javascript developer as well as any Web Standards oriented developer.  The fact that Javascript is chosen is no mistake.  Javascript is the perfect glue language for many reasons: easy to remember, easy to program, ubiquitous, and now, with Google's V8 VM, high performance.  The API is intended to expose both CCNx services so that both client and server application developers can easily interact with CCNx services and create their own CCNx services.
+
+CCN4BNODE is free, open source software.  It is intended for experimental use as a way to enable the browser to be a central party in the transaction between CCNx nodes.  Currently browsers do not support the CCNx protocol natively, other than as academic acitivities through native plugins.  The intent is this design will suffice for the near term, and potentially be useful beyond the browser, as the Javascript runtime has gained traction beyond traditional desktop browsers.
+
+Currently, Project CCNx only supports two languages for development: Java and ANSI-C.  Furthermore, the libraries are not symetric in terms of API, and support different functions.  The Java API is focused on client only.  The C API covers the client, but as well, C is used for the design of the CCNx service daemons and the majority of tools [* Need to clarify this further at some point *].  It makes sense to offer some abstractions for the typical Javascript developer to support their focus on writing response Web Applications and Services.  Our approach is tied to Node.js on the Server Side (which is service wrapper of API scaffolding on top of V8).  On the client side, we take a more pure web standards based approach, and focus on traditional Javascript library design.  The APIs are intended to be symetric between the Client and Server, though the server will offer a superset of functionality needed to manage web service endpoints.
+ 
+================================
+II . The Problem
+================================
+There is currently no support for CCNx Protocol in the standard web browser of 2011 without some special native code integration or web proxy support.  Javascript developers want to use a JS friendly library to develope web applications and services.  Since CCNx protocol calls for multiple layers of interaction at the network level, sophisticated workflows, security infrastructure, and data structures to support the protocol, it is not simply a matter of writing a thin API.  To be useful, the Web Developer will need a sense of how CCNx is intended to work as a protocol, and develop applications to support this behavior.  The existing Internet infrastructure will be the foundation, but it requires some new concepts (in terms of network service endpoints) to support CCNx.
+
+================================
+III. The Solution
+================================
+The simplest way to get CCNx into the hands of a Javascript developer is to make it easy for a JSdev to use and deploy CCNx-based services.  This requires to parts:
+
+- CCNx Service Node
+* FIB (Forward Information Base)
+* PIT (Pending Interest Table
+* CS (Content Store)
+* API for common CCNx objects: Content Object, Name, SignedInfo, PublisherPublicKeyDigest, Timestamp, Type, FreshnessSeconds, FinalBlockID, KeyLocator, Content, InterestMessage, DataMessage
+* Admin API - to manage the FIB, PIT, CS services/daemons
+* Metrics API - to monitor traffic and statistics, including handling logging
+* Content API - to manage send/receive of data and interest
+* Web Admin App - to allow a user to manage the service endpoint
+* Content Locker App - to allow a user to store and share content using CCNx
+
+- CCNx Client 
+* Client API - TBD [* Minimally, only the Common API is needed *] ... potentially we want to offer a simple Facade to make it easier to grok CCNx, or simply use it under the covers.  This will be explored in a future technical brief.
+* Content API - to manage send/receive of data and interest
+* API common CCNx objects: Content Object, Name, SignedInfo, PublisherPublicKeyDigest, Timestamp, Type, FreshnessSeconds, FinalBlockID, KeyLocator, Content, InterestMessage, DataMessage
+
+================================
+IV. Implementation/Explanation
+================================
+The implementation carries a tall order, deliver the CCNx protocol down to the Javascript developer, for use in a browser.  To provide any useful functionality, the Javascript developer must have access to CCNx service nodes.  Our choice here is to focus on a very thin layer for the Web Browser Client, so that there is very little the web developer needs to "add in" to the existing app to interact with CCNx service nodes.  Just include a <script> tag with a library that will handle the common CCNx datastructures.  Alternatively, the Client developer could skip the API and simply call into web services using a RESTFUL interface.  We won't explore this option in this technical brief.
+
+To reiterate, what is really important is to support availability of CCNx service nodes.  To this end, we will focus on this problem a bit more, just to make the life of the Javascript developer easier.  CCNx will be wrapped in a thin Server-Side Javascript API, called ccn4bnode.  This API is provided as a package (module) for Node.js.  Node.js provides the thin scafolding to build very scalable, non-blocking web services for cloud deployment (currently running on everything from Intel IA64, x86, ARM5-9, accross most OSs.  Because the ready availability of Node.js-based packages through a tool called NPM (Node Package Manager), we can reliably deploy a CCNx service node via NPM and get it into the cloud within minutes.  Furthermore, we will provide a wrapper to manage the CCNx service node.  This buys us quite a bit, in terms of simplifying the task of getting started with CCNx, which arguably has a steep learning curve.  By wrapping the ccnd and ccnr into Node.js, we have a powerful way to manage our CCNx service nodes, using a language that is ubiquitous and to an audience of developers who are comfortable picking up new Javascript APIs.
+
+To support communication between client parties and CCNx service nodes, our communication will flow over Web Standards based transports like HTTP.  The CCNx service node can act as a proxy to the client Web Browser, which is restricted in ability to access the filesystem directly or open server sockets.  Instead we will fallback on facilities offered within Node.js, namely Socket.io, to manage socket oriented communication and messaging between browser and the CCN4BNODE CCNx service node.
+
+================================
+V. Weaknesses
+================================
+
+Arguably, there is a ton of work to do here, and simply wrapping C or Java interfaces in Javascript doesn't make sense.  The Web Browser, at the HTML5/JS/CSS3 based Web Runtime, is unable to take advantage of optimizations and capabilities of the OS or hardware.  Furthermore, much of the work can simply be done by proxying all requests through Apache Web Server and focusing on traditional approaches for web service development.  Additionally, more benefit can be gained from hooking a native plugin into the browser to allow a browser to deliver optmized client support for CCNx, or even integrate the CCNx service endpoint directly into the browser.  These are all interesting and valid approaches.  However, we won't go down this road.  We believe the benefits offered by the Node.js ecosystem mean rapid adoption through simplified distribution (no "installs"), focus on performance, and a programming model that fits into the mind of the web developer both in terms of client and server side development.  
+
+================================
+VI. Conclusion
+================================
+
+CCN4BNODE will facilitate easy adoption of advanced features offered by CCNx without the steep learning curve, allowing quick time to develop and deploy end-to-end applications and services.
