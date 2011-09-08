@@ -1,6 +1,6 @@
 { "name" :            "ccn4bnode"
 , "description" :     "A node.js-based CCNx Integration, ala ccn4b"
-, "version" :         "0.1.3"
+, "version" :         "0.1.31"
 , "author" :          "David J. Kordsmeier <dkords@gmail.com>"
 , "contributors" :  [ "Simba",
                       "Keiko",
@@ -15,7 +15,8 @@
                     , "freebsd" ]
 , "config":         { "native" : true}                    
 , "main":             "./lib/ccn4bnode/index"
-, "directories" :   { "lib" : "./lib/ccn4bnode" }
+, "directories" :   { "lib" : "./lib/ccn4bnode"
+ 					, "ccnx" : "./external/ccnx-0.4.0"}
 , "engines" :       { "node" : ">=0.4.0" }
 , "scripts": 	{ "install" : "bash ./install.sh"
 	 	, "test" : "node test/index.js" }
