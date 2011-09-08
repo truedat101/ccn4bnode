@@ -1,6 +1,6 @@
 { "name" :            "ccn4bnode"
 , "description" :     "A node.js-based CCNx Integration, ala ccn4b"
-, "version" :         "0.1.31"
+, "version" :         "0.1.40"
 , "author" :          "David J. Kordsmeier <dkords@gmail.com>"
 , "contributors" :  [ "Simba",
                       "Keiko",
@@ -22,6 +22,6 @@
 	 	, "test" : "node test/index.js" }
 , "licenses" :    [ { "type" :  "BSD"
                     , "url" :   "http://www.opensource.org/licenses/BSD-3-Clause" } ]
-,"dependencies": {}
+,"dependencies": { "nlogger": "0.3.x"}
 ,"devDependencies": {}
 }
