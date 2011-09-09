@@ -1,6 +1,6 @@
 { "name" :            "ccn4bnode"
 , "description" :     "A node.js-based CCNx Integration, ala ccn4b"
-, "version" :         "0.1.43"
+, "version" :         "0.1.45"
 , "author" :          "David J. Kordsmeier <dkords@gmail.com>"
 , "contributors" :  [ "Simba",
                       "Keiko",
