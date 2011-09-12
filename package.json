@@ -1,10 +1,10 @@
 { "name" :            "ccn4bnode"
 , "description" :     "A node.js-based CCNx Integration, ala ccn4b"
-, "version" :         "0.1.46"
+, "version" :         "0.1.47"
 , "author" :          "David J. Kordsmeier <dkords@gmail.com>"
 , "contributors" :  [ "Simba",
                       "Keiko",
-                      "Benny"]
+                      "Benny - RIP"]
 
 , "repository" :    { "type" :  "git"
                     , "url" :   "http://github.com/truedat101/ccn4bnode.git" }
