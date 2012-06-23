@@ -11,7 +11,7 @@
 var nodeunit = require('../nodeunit'),
     utils = require('../utils'),
     fs = require('fs'),
-    sys = require('sys'),
+    util = require('util'),
     track = require('../track'),
     path = require('path');
     AssertionError = require('../assert').AssertionError;
@@ -59,42 +59,42 @@ exports.run = function (files, options, callback) {
     });
     var tracker = track.createTracker(function (tracker) {
         if (tracker.unfinished()) {
-            sys.puts('');
-            sys.puts(error(bold(
+            util.puts('');
+            util.puts(error(bold(
                 'FAILURES: Undone tests (or their setups/teardowns): '
             )));
             var names = tracker.names();
             for (var i = 0; i < names.length; i += 1) {
-                sys.puts('- ' + names[i]);
+                util.puts('- ' + names[i]);
             }
-            sys.puts('');
-            sys.puts('To fix this, make sure all tests call test.done()');
+            util.puts('');
+            util.puts('To fix this, make sure all tests call test.done()');
             process.reallyExit(tracker.unfinished());
         }
     });
 
     nodeunit.runFiles(paths, {
         moduleStart: function (name) {
-            sys.puts('\n' + bold(name));
+            util.puts('\n' + bold(name));
         },
         testDone: function (name, assertions) {
             tracker.remove(name);
 
             if (!assertions.failures()) {
-                sys.puts('✔ ' + name);
+                util.puts('✔ ' + name);
             }
             else {
-                sys.puts(error('✖ ' + name) + '\n');
+                util.puts(error('✖ ' + name) + '\n');
                 assertions.forEach(function (a) {
                     if (a.failed()) {
                         a = utils.betterErrors(a);
                         if (a.error instanceof AssertionError && a.message) {
-                            sys.puts(
+                            util.puts(
                                 'Assertion Message: ' +
                                 assertion_message(a.message)
                             );
                         }
-                        sys.puts(a.error.stack + '\n');
+                        util.puts(a.error.stack + '\n');
                     }
                 });
             }
@@ -103,14 +103,14 @@ exports.run = function (files, options, callback) {
             var end = new Date().getTime();
             var duration = end - start;
             if (assertions.failures()) {
-                sys.puts(
+                util.puts(
                     '\n' + bold(error('FAILURES: ')) + assertions.failures() +
                     '/' + assertions.length + ' assertions failed (' +
                     assertions.duration + 'ms)'
                 );
             }
             else {
-                sys.puts(
+                util.puts(
                     '\n' + bold(ok('OK: ')) + assertions.length +
                     ' assertions (' + assertions.duration + 'ms)'
                 );

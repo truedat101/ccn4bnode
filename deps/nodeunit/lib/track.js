@@ -3,7 +3,7 @@
  * the undone tests.
  */
 
-var sys = require('sys');
+var util = require('util');
 
 
 exports.createTracker = function (on_exit) {
@@ -39,11 +39,11 @@ exports.createTracker = function (on_exit) {
 
 exports.default_on_exit = function (tracker) {
     if (tracker.unfinished()) {
-        sys.puts('');
-        sys.puts('Undone tests (or their setups/teardowns): ');
+        util.puts('');
+        util.puts('Undone tests (or their setups/teardowns): ');
         var names = tracker.names();
         for (var i = 0; i < names.length; i += 1) {
-            sys.puts(names[i]);
+            util.puts(names[i]);
         }
         process.reallyExit(tracker.unfinished());
     }
