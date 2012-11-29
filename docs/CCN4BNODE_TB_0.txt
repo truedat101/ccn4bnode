@@ -17,7 +17,7 @@ II . The Problem
 There is currently no support for CCNx Protocol in the standard web browser of 2011 without some special native code integration or web proxy support.  Javascript developers want to use a JS friendly library to develope web applications and services.  Since CCNx protocol calls for multiple layers of interaction at the network level, sophisticated workflows, security infrastructure, and data structures to support the protocol, it is not simply a matter of writing a thin API.  To be useful, the Web Developer will need a sense of how CCNx is intended to work as a protocol, and develop applications to support this behavior.  The existing Internet infrastructure will be the foundation, but it requires some new concepts (in terms of network service endpoints) to support CCNx.
 
 ================================
-III. The Solution
+III. Proposed Solution
 ================================
 The simplest way to get CCNx into the hands of a Javascript developer is to make it easy for a JSdev to use and deploy CCNx-based services.  This requires to parts:
 
@@ -35,7 +35,10 @@ The simplest way to get CCNx into the hands of a Javascript developer is to make
 - CCNx Client 
 * Client API - TBD [* Minimally, only the Common API is needed *] ... potentially we want to offer a simple Facade to make it easier to grok CCNx, or simply use it under the covers.  This will be explored in a future technical brief.
 * Content API - to manage send/receive of data and interest
-* API common CCNx objects: Content Object, Name, SignedInfo, PublisherPublicKeyDigest, Timestamp, Type, FreshnessSeconds, FinalBlockID, KeyLocator, Content, InterestMessage, DataMessage
+* API common CCNx objects: Content Object, Name, SignedInfo, PublisherPublicKeyDigest, Timestamp, Type, FreshnessSeconds,  FinalBlockID, KeyLocator, Content, InterestMessage, DataMessage
+* Simplified Facade for the Common API - boil all operations down to equivalent methods used in CCNx utilities (ccnput, ccnget, etc.)
+* Sync - Since the Sync APIs are relatively new in CCNx (mostly functional circa 0.6.x), it these should be supported as independent APIs, not completely tied to the standard CCNx API.  Some users may wish for just Sync operations without being bound to repo
+* Extensions - Given the brilliant levels of flexibility in JS, it should be relatively easy to provide strategy layers, plugins, and general extensions without much effort.
 
 ================================
 IV. Implementation/Explanation
@@ -46,14 +49,36 @@ To reiterate, what is really important is to support availability of CCNx servic
 
 To support communication between client parties and CCNx service nodes, our communication will flow over Web Standards based transports like HTTP.  The CCNx service node can act as a proxy to the client Web Browser, which is restricted in ability to access the filesystem directly or open server sockets.  Instead we will fallback on facilities offered within Node.js, namely Socket.io, to manage socket oriented communication and messaging between browser and the CCN4BNODE CCNx service node.
 
+
 ================================
-V. Weaknesses
+V. Areas of Investigation
+================================
+
+There are a number of unknowns in terms of performance of Socket.io, viability of this as a protocol long term, and usefulness for Web Developers compared to use of Web Sockets.
+
+Exploration of API design such that users can have a symetric API that works roughly the same way in the browser, as in the server, is a nice goal, and is worth a look.  Several efforts exist to make this a simple effort by creating browser loadable modules that can reuse some server side code, or alternatively wrap a library in such a way that it is easily used in client and server.   
+
+How far one can go to serve content directly out of their own browser cache is very interesting, and could make it possible for a user to share content either from their standard browser cache, or via some form of backing store as in HTML5 client side storage, or possibly less close to home in an CCNx Content Repository.
+
+While it is deemed important to stick with HTML5 web standards, the emphasis should be on the available stack as a whole, not on the standards necessarily.   Many things in the HTML5 "standard" never get completely implemented or never see the widespread support needed to make them useful to web devs.  Poorly specified features also tend to get widely differing implementations.   Throw in Mobile, and throw in Apple's choices which are sometimes at odds with the rest of the industry, and the web developer is often left with some difficult choices about using the bleeding edge tech, or sticking with what works today. 
+
+================================
+VI. Weaknesses
 ================================
 
 Arguably, there is a ton of work to do here, and simply wrapping C or Java interfaces in Javascript doesn't make sense.  The Web Browser, at the HTML5/JS/CSS3 based Web Runtime, is unable to take advantage of optimizations and capabilities of the OS or hardware.  Furthermore, much of the work can simply be done by proxying all requests through Apache Web Server and focusing on traditional approaches for web service development.  Additionally, more benefit can be gained from hooking a native plugin into the browser to allow a browser to deliver optmized client support for CCNx, or even integrate the CCNx service endpoint directly into the browser.  These are all interesting and valid approaches.  However, we won't go down this road.  We believe the benefits offered by the Node.js ecosystem mean rapid adoption through simplified distribution (no "installs"), focus on performance, and a programming model that fits into the mind of the web developer both in terms of client and server side development.  
 
 ================================
-VI. Conclusion
+VII. Conclusion
 ================================
 
 CCN4BNODE will facilitate easy adoption of advanced features offered by CCNx without the steep learning curve, allowing quick time to develop and deploy end-to-end applications and services.
+
+================================
+VIII. Related Work
+================================
+
+There are a number of other efforts seeking to bring CCN/CCNx into the browser.
+
+TODO - Site other research
+
