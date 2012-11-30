@@ -1,0 +1,22 @@
+{
+  "name": "jumbosocket",
+  "description": "js.js a small server for big ideas, offering a small template starter project, inspired by fu.js and utilizing socket.io",
+  "version": "0.0.37",
+  "homepage": "http://code.google.com/p/jumbosocket",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com:truedat101/jumbosocket.git"
+  },
+  "author": "@dkords <dkords@gmail.com>",
+  "dependencies": {
+    "socket.io": "0.8.x",
+	"nlogger": "0.3.x",
+	"ccn4bnode": "0.1.x"
+  },
+  "directories": {
+    "lib": "."
+  },
+  "engines": {
+    "node": "0.4.x"
+  }
+}
