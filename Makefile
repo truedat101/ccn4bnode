@@ -1,12 +1,19 @@
 
 NODE = node
-NODEUNIT = deps/nodeunit/bin/nodeunit
+JSLINT = jshint
 all:
 	./install.sh
 
+lint:
+	$(JSLINT) index.js
+	$(JSLINT) ccn4bnode-server.js
+	$(JSLINT) lib/ccn4bnode/index.js
+	$(JSLINT) lib/ccn4bnode/ccnd/ccndadmin.js
+	$(JSLINT) lib/ccn4bnode/ccnr/ccnradmin.js
+
 test: 
-	@echo "\n == Run All tests minus replicaset tests=="
-	$(NODE) tools/test_all.js --noreplicaset
+	@echo "\n == Run All tests minus nada tests=="
+	$(NODE) tools/test_all.js --nada
 
 test_all: 
 	@echo "\n == Run All tests =="
