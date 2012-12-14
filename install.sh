@@ -1,14 +1,15 @@
 #!/bin/bash
+VERSION=ccnx-0.7.0
 echo "================================================================================"
 echo "=                                                                              ="
 echo "=                                                                              ="
 echo "================================================================================"
-echo "grab the latest CCNx package v0.7.0rc1"
+echo "grab the latest $VERSION"
 cd external
-wget https://github.com/ProjectCCNx/ccnx/zipball/ccnx-0.7.0rc1 -O ccnx-0.7.0rc1.zip
-unzip ccnx-0.7.0rc1.zip
-mv ProjectCCNx* ccnx-0.7.0rc1
-cd ccnx-0.7.0rc1
+wget https://github.com/ProjectCCNx/ccnx/zipball/$VERSION -O $VERSION.zip
+unzip $VERSION.zip
+mv ProjectCCNx* $VERSION
+cd $VERSION
 ./configure
 if [ x`which gmake` != "x" ]; then
   echo "Using GNU make";
