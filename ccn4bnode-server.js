@@ -1,6 +1,6 @@
 /**
 #
-#Copyright (c) 2011 Razortooth Communications, LLC. All rights reserved.
+#Copyright (c) 2011-2012 Razortooth Communications, LLC. All rights reserved.
 #
 #Redistribution and use in source and binary forms, with or without modification,
 #are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@
 #SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-var js =  require("js.js").JS,
+var JS =  require("js.js").JS,
 	net = require("net"),
 	sys = require("sys"),
 	url = require('url'),
@@ -321,5 +321,6 @@ function ccn4bnodeHandler(client) {
 }
 
 js.js_handler = ccn4bnodeHandler;
-js.listenHttpWS(js.CONFIG.HTTPWS_PORT, js.address);
+js.create(js.address, js.CONFIG.HTTPWS_PORT);
+js.listenHttpWS();
 js.listenSocketIO(js.js_handler); // This is initially set to null, so it will fallback to use js.DEFAULT_JS_HANDLER
