@@ -14,11 +14,12 @@ Changelog
 * 0.2.5 - bump CCNx version to 0.7.0
 * 0.2.6 - Finish integration with JS.js and CCNx 0.7.0 as far as web admin console
 * 0.2.7 - Fix a undef function error
+* 0.2.8 - Change default port to 9700 from 8000
 
 ===========
 Roadmap
 ===========
-* 0.2.8 - Cleanup hardcoded path dependencies on CCNx version
+* 0.2.9 - Cleanup hardcoded path dependencies on CCNx version
 * 0.3.0 - refactor naming api
 * 0.4.0 - TBD
 

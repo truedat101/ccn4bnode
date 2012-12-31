@@ -43,6 +43,7 @@ var JS =  require("js.js").JS,
 
 	var js = new JS();
 	js.CONFIG.DOCROOT = './htdocs/';
+	js.CONFIG['HTTPWS_PORT'] = 9700;
 	js.get("/ccn4bnode", js.staticHandler("index.html"));
 
 	js.get("/pingstatus", function(req, res) {
