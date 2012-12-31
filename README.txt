@@ -12,12 +12,12 @@ Changelog
 * 0.2.3 - Migrate to a JS.js base (don't package jumbosocket as a submodule), add some test cases
 * 0.2.4 - Add a config.json, remove hardcoded test deps, implement web ui on JS.js, add jshint to dev dependencies
 * 0.2.5 - bump CCNx version to 0.7.0
+* 0.2.6 - Finish integration with JS.js and CCNx 0.7.0 as far as web admin console
 
 ===========
 Roadmap
 ===========
-
-* 0.2.6 - Finish integration with JS.js and CCNx 0.7.0 as far as web admin console
+* 0.2.7 - Cleanup hardcoded path dependencies on CCNx version
 * 0.3.0 - refactor naming api
 * 0.4.0 - TBD
 

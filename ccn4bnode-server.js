@@ -33,6 +33,7 @@ var JS =  require("js.js").JS,
 	sys = require("sys"),
 	url = require('url'),
 	util = require('util'),
+	exec = require('child_process').exec,
 	CCNDAdmin = require('ccn4bnode').CCNDAdmin,
 	CCNRAdmin = require('ccn4bnode').CCNRAdmin,
 	logger = require('nlogger').logger(module),
@@ -50,7 +51,7 @@ var JS =  require("js.js").JS,
 		var data = new Buffer(1024); 
 		// XXX Ok, this is really dumb way, we should probably just hit the port for ccnd and if we get a response, then
 		// we are alive ...
-		var grep4ccnd = js.executil('ps aux | grep ccnd | grep -v grep | grep -v ccndstatus', null ,function(error, stdout, stderr) {
+		var grep4ccnd = executil('ps aux | grep ccnd | grep -v grep | grep -v ccndstatus', null ,function(error, stdout, stderr) {
 			logger.debug('******** pingstatus ***********');
 			// logger.debug('stdout: ' + data + (new Date).getTime());
 			if (stderr) logger.debug('stderr: ' + stderr);
@@ -289,6 +290,32 @@ js.getterer("/pit/[\\w\\.\\-]+", function(req, res) {
 		res.write(body);
 		res.end();
 });
+
+function executil(execstring, options, callback) {
+	var child, data;
+	var optdefaults = { encoding: 'utf8',
+						timeout: 0,
+						maxBuffer: 200*1024,
+						killSignal: 'SIGTERM',
+						cwd: null,
+						env: null } /* We can change these defaults as needed */
+	
+	if (options) logger.debug('using options');
+	if (callback) logger.debug('using callback');
+	logger.debug('executil start exec of ' + execstring + ' at: ' + (new Date).getTime());
+	child = exec(execstring,
+				options ? options : optdefaults,
+				callback ? callback :
+				function (error, stdout, stderr) {
+					data = stdout;
+					logger.debug('stdout: ' + data + (new Date).getTime());
+					logger.debug('stderr: ' + stderr);
+					if (error !== null) {
+						logger.error('exec error: ' + error);
+					}
+				});
+	logger.debug('executil of ' + child.pid + ' completed at ' + (new Date).getTime());
+}
 
 /**
  * This is a basic handler.  XXX Clean it up.  It's messy and not clear what is the purpose.
