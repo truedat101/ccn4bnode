@@ -1,6 +1,6 @@
 { "name" :            "ccn4bnode"
 , "description" :     "A node.js-based CCNx Integration, ala ccn4b.  Adds the CCNx distro NPM installation, and offers daemon services and an api to manage environment and service lifecycle."
-, "version" :         "0.2.8"
+, "version" :         "0.2.9"
 , "author" :          "David J. Kordsmeier <dkords@gmail.com>"
 , "contributors" :  [ "Simba",
                       "Keiko",
@@ -17,7 +17,7 @@
 , "config":         { "native" : true}                    
 , "main":             "./lib/ccn4bnode/index"
 , "directories" :   { "lib" : "./lib/ccn4bnode"
- 					, "ccnx" : "./external/ccnx-0.7.0"}
+ 					, "ccnx" : "./external/ccnx-0.7.1"}
 , "engines" :       { "node" : ">=0.6.0" }
 , "scripts": 		{ "install" : "bash ./install.sh"
 	 				, "test" : "node test/index.js" }
